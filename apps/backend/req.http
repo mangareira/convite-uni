@@ -1,0 +1,61 @@
+GET http://localhost:4000/events
+
+
+###
+
+GET http://localhost:4000/ping
+
+###
+GET http://localhost:4000/events/53ae44ec-30fb-4e5a-9b0b-a9fbedd8e3c1
+
+###
+GET http://localhost:4000/events/validate/aniversario-joao/53ae44ec-30fb-4e5a-9b0b-a9fbedd8e3c1
+
+
+###
+
+POST http://localhost:4000/events/access
+Content-Type: application/json
+
+{
+  "id": "5e25282b-cde5-45ff-9436-c4320d7c2f6f",
+  "password": "joao2024"
+}
+
+
+###
+POST http://localhost:4000/events/inauguracao-loja-estrela/guest
+Content-Type: application/json
+
+{
+  "name": "jose silva",
+  "email": "jose@gmail.com",
+  "confirmed": true,
+  "hasCompanions": true,
+  "qtdCompanion": 10
+}
+
+###
+POST http://localhost:4000/events
+Content-Type: application/json
+
+{
+  "alias": "evento-semana-formação",
+  "name": "Evento semana Formação",
+  "image": "https://www.simplilearn.com/ice9/free_resources_article_thumb/recact_angular_vue.jpg",
+  "imageBackground": "https://www.frontendmag.com/wp-content/uploads/2023/01/easiest-front-end-framework.jpeg",
+  "date": "2025-12-31T20:00:00",
+  "local": "Maranhão",
+  "description": "Evento de tecnologico",
+  "password": "MA1234",
+  "expectedAudience": 100,
+  "guests": [
+    {
+      "name": "jose silva",
+      "email": "jose@gmail.com",
+      "confirmed": true,
+      "hasCompanions": true,
+      "qtdCompanion": 10
+    }
+  ]
+}

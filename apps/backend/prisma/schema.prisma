@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Event {
+  id               String   @id @default(uuid())
+  alias            String   @unique
+  name             String
+  password         String
+  date             DateTime
+  local            String
+  description      String
+  image            String
+  imageBackground  String
+  expectedAudience Int
+  guests           Guest[]
+
+  @@map("events")
+}
+
+model Guest {
+  id            String  @id @default(uuid())
+  name          String
+  email         String
+  confirmed     Boolean
+  hasCompanions Boolean
+  qtdCompanion  Int
+  event         Event?  @relation(fields: [eventId], references: [id])
+  eventId       String?
+}
