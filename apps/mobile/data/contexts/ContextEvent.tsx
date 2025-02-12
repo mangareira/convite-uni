@@ -1,6 +1,6 @@
 import { ContextEventProps } from "@/utils/interfaces/props-context-event";
 import { createContext, ReactNode, useEffect, useState } from "react";
-import { Event, events } from "core"
+import { Event } from "core"
 import useAPI from "../hooks/useAPI";
 import useLocalStorage from "../hooks/useLocalStorage";
 

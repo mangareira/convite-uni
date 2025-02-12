@@ -12,22 +12,16 @@ export default function useAPI() {
 
   const httpPost = useCallback(async <T, D>(path: string, body: D) => {
     const uri = path.startsWith("/")  ? path : `${path}`
-    const urlComplete = `http://localhost:4000/${uri}`
+    const urlComplete = `${urlBase}/${uri}`
+    const res = await fetch(urlComplete, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body:body ? JSON.stringify(body) : null
+    })
     
-    try {
-      const res = await fetch(urlComplete, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body:body ? JSON.stringify(body) : null
-      })
-      
-      return extractData<T>(res)   
-    } catch (error) {
-      console.log(error);
-      
-    }
+    return extractData<T>(res)  
   }, [])
 
   function extractData<D>(response: Response) {

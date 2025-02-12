@@ -34,8 +34,7 @@ export class EventsController {
 
   @Post('access')
   async accessEvent(@Body() data: { id: string; password: string }) {
-    console.log(data);
-    const event = await this.repo.getById(data.id);
+    const event = await this.repo.getById(data.id, true);
 
     if (!event) {
       throw new Error('Evento não encontrado');
