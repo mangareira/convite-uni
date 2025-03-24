@@ -17,7 +17,7 @@ export function EventsProvider(props:{children: ReactNode}) {
   const { saveItem, getItem } = useLocalStorage<Event[]>()
   const [event, setEvent] = useState<Event | null>(null)
   const [events, setEvents] = useState<Event[]>([])
-  
+
   const selectEvent = async(id: string) => {
     const event = events.find((e) => e.id === id)
     

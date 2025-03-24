@@ -7,7 +7,7 @@
     "dev": "run-p packages:* apps:*",
     "apps:frontend": "cd apps/frontend && npm run dev",
     "apps:backend": "cd apps/backend && npm run dev",
-    "apps:mobile": "cd apps/mobile && npx expo start",
+    "-apps:mobile": "cd apps/mobile && npx expo start",
     "packages:core": "cd packages/core && npm run dev"
   },
   "keywords": [],

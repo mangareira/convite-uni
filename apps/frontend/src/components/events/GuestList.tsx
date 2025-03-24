@@ -1,6 +1,6 @@
 import { Guest } from 'core';
-import GuestItem from './GuestItem';
 
+import GuestItem from './GuestItem';
 
 export default function GuestList(props: { guests: Guest[] }) {
   return (

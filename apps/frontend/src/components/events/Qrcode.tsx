@@ -1,10 +1,9 @@
 import { Event } from 'core';
 import QRCode from 'react-qr-code';
 
-
 export default function Qrcode(props: { event: Event }) {
   return (
-    <div className="flex flex-col items-center gap-4 border border-zinc-800 px-10 ">
+    <div className="flex flex-col items-center gap-4 border border-zinc-800 py-5 px-10 ">
       <span className="text-sm font-light text-zinc-400">
         Acesse via mobile
       </span>

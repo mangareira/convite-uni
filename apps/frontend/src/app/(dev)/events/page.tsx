@@ -1,10 +1,9 @@
 import React from 'react';
 
+import { events } from 'core';
 import Image from 'next/image';
 import Link from 'next/link';
 import QRCode from 'react-qr-code';
-import { events } from 'core';
-
 
 export default function page() {
   return (

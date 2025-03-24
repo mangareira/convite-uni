@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpException,
+  Param,
+  Post,
+} from '@nestjs/common';
 import {
   complementEvent,
   complementGuest,
@@ -18,15 +25,16 @@ export class EventsController {
     const eventSignUp = await this.repo.getByAlias(event.alias);
 
     if (eventSignUp && eventSignUp.id !== event.id)
-      throw new Error('ja existe um evento cadastrado com esse alias.');
+      throw new HttpException('Já existe um evento com esse alias.', 400);
     const eventComplete = complementEvent(this.inserial(event));
     await this.repo.save(eventComplete);
+    return this.serial(eventComplete);
   }
 
   @Post(':alias/guest')
   async saveGuest(@Param('alias') alias: string, @Body() guest: Guest) {
     const event = await this.repo.getByAlias(alias);
-    if (!event) throw new Error('Evento não encontrado');
+    if (!event) throw new HttpException('Evento não encontrado', 400);
 
     const guestComplet = complementGuest(guest);
     return this.repo.saveGuest(event, guestComplet);
@@ -37,11 +45,11 @@ export class EventsController {
     const event = await this.repo.getById(data.id, true);
 
     if (!event) {
-      throw new Error('Evento não encontrado');
+      throw new HttpException('Evento não encontrado', 400);
     }
 
     if (event.password !== data.password) {
-      throw new Error('Senha não corresponde ao evento');
+      throw new HttpException('Senha não corresponde ao evento', 400);
     }
 
     return this.serial(event);
@@ -71,6 +79,8 @@ export class EventsController {
   }
 
   private serial(events: Event) {
+    console.log(DateTime.format(events.date));
+
     if (!events) return null;
     return {
       ...events,

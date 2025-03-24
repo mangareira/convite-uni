@@ -1,16 +1,17 @@
 import { Event, Guest } from 'core';
+
 import Statistc from '../shared/statistc';
 
 import GuestList from './GuestList';
 import InfoEvent from './InfoEvent';
 import Qrcode from './Qrcode';
 
-
 export default function DashboardEvent(props: {
   event: Event;
   guests: Guest[];
   absents: Guest[];
   totalAll: number | undefined;
+  refreshListGuests: () => void;
 }) {
   return (
     <div className="flex flex-col gap-2">
@@ -35,7 +36,10 @@ export default function DashboardEvent(props: {
           value={props.totalAll}
         />
       </div>
-      <button className="button blue self-end mt-12">
+      <button
+        className="button blue self-end mt-12"
+        onClick={props.refreshListGuests}
+      >
         <span>Atualizar Lista de convidados</span>
       </button>
       <span className="flex py-2 text-xl font-bold text-white/80">
