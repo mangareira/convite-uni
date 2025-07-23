@@ -5,10 +5,20 @@
   "private": true,
   "scripts": {
     "dev": "run-p packages:* apps:*",
+    "build": "run-p packages-build:* apps-build:*",
+    "start": "run-p apps-start:*",
+
     "apps:frontend": "cd apps/frontend && npm run dev",
     "apps:backend": "cd apps/backend && npm run dev",
     "-apps:mobile": "cd apps/mobile && npx expo start",
-    "packages:core": "cd packages/core && npm run dev"
+    "packages:core": "cd packages/core && npm run dev",
+
+    "apps-build:frontend": "cd apps/frontend && npm run build",
+    "apps-build:backend": "cd apps/backend && npm run build",
+    "packages-build:core": "cd packages/core && npm run dev",
+        
+    "apps-start:frontend": "cd apps/frontend && npm run start",
+    "apps-start:backend": "cd apps/backend && npm run start"
   },
   "keywords": [],
   "author": "",
