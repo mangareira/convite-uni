@@ -19,6 +19,9 @@ export default function SuccessPage() {
     setUrlCurrent(window.location.origin);
   }, []);
 
+  const newDate = `${event.date?.toISOString().split('T')[0]}T${Number(event.date?.toLocaleTimeString().split(':')[0]) - 3}:${event.date?.toLocaleTimeString().split(':')[1]}`;
+
+
   return event ? (
     <Window
       background={event.imageBackground}
@@ -26,7 +29,7 @@ export default function SuccessPage() {
       label="Seu evento foi criado:"
       title={event.name}
     >
-      <InfoEvent hideName event={event as Event} />
+      <InfoEvent hideName event={{...event, date: new Date(newDate)} as Event} />
       <div className="flex gap-5 items-center py-6">
         <div className="flex-1 flex flex-col gap-5">
           <CopyClipBoard

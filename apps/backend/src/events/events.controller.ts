@@ -79,8 +79,6 @@ export class EventsController {
   }
 
   private serial(events: Event) {
-    console.log(DateTime.format(events.date));
-
     if (!events) return null;
     return {
       ...events,

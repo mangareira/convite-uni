@@ -13,10 +13,14 @@ export default function DashboardEvent(props: {
   totalAll: number | undefined;
   refreshListGuests: () => void;
 }) {
+
+  const date = new Date(props.event.date)
+  const newDate = `${date?.toISOString().split('T')[0]}T${Number(date?.toLocaleTimeString().split(':')[0]) - 3}:${date?.toLocaleTimeString().split(':')[1]}`;
+
   return (
     <div className="flex flex-col gap-2">
       <div className="flex gap-2 self-stretch">
-        <InfoEvent className="flex-1" event={props.event} />
+        <InfoEvent className="flex-1" event={{...props.event, date: new Date(newDate)} as Event} />
         <Qrcode event={props.event} />
       </div>
       <div className="grid grid-cols-3 gap-6 mt-4">
