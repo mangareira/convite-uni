@@ -30,7 +30,7 @@ export default function FormGuest(props: FormGuestProps) {
           }
         />
         {props.guest.confirmed && (
-          <div className="flex-1 flex gap-5">
+          <div className="flex-1 flex gap-5 max-lg:hidden ">
             <YesOrNoField
               className="flex-1"
               label="Possuiu Acompanhantes ?"
