@@ -7,16 +7,13 @@
     "dev": "run-p packages:* apps:*",
     "build": "run-p packages-build:* apps-build:*",
     "start": "run-p apps-start:*",
-
     "apps:frontend": "cd apps/frontend && npm run dev",
     "apps:backend": "cd apps/backend && npm run dev",
     "-apps:mobile": "cd apps/mobile && npx expo start",
     "packages:core": "cd packages/core && npm run dev",
-
     "apps-build:frontend": "cd apps/frontend && npm run build",
     "apps-build:backend": "cd apps/backend && npm run build",
     "packages-build:core": "cd packages/core && npm run build",
-        
     "apps-start:frontend": "cd apps/frontend && npm run start",
     "apps-start:backend": "cd apps/backend && npm run start"
   },
@@ -25,11 +22,17 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "archiver": "^7.0.1",
+    "docx": "^9.5.1",
     "npm-run-all": "^4.1.5",
+    "pdf-lib": "^1.17.1",
     "typescript": "^5.7.3"
   },
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "devDependencies": {
+    "@types/archiver": "^6.0.3"
+  }
 }

@@ -9,7 +9,7 @@ import FormPasswordEvent from '@/components/events/FormPasswordEvent';
 import useAPI from '@/data/hooks/useAPI';
 
 export default function Page(props: any) {
-  const { httpPost } = useAPI();
+  const { httpPost, httpPostBlob } = useAPI();
 
   const params: any = use(props.params);
   const id = params.all[0];
@@ -33,6 +33,27 @@ export default function Page(props: any) {
     setEvent(event);
   }, [httpPost, id, password]);
 
+  const handlePdf = useCallback(async () => {
+    try {
+      const response = await httpPostBlob('events/pdf', { id });
+      const blob = new Blob([response], { type: 'application/zip' });
+      const url = URL.createObjectURL(blob);
+      
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'documentos_evento.zip';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Erro ao gerar PDFs:', error);
+      alert('Ocorreu um erro ao gerar os PDFs');
+    }
+  }, [id, httpPostBlob]);
+
+  
+
   useEffect(() => {
     const loadEvent = () => {
       const event = events.find(
@@ -51,6 +72,7 @@ export default function Page(props: any) {
           event={event}
           guests={confirmeds}
           refreshListGuests={getEvent}
+          handlePdf={handlePdf}
           totalAll={allTotal}
         />
       ) : (

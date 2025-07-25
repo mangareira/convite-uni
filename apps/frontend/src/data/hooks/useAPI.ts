@@ -58,5 +58,26 @@ export default function useAPI() {
     return data;
   }
 
-  return { httpGet, httpPost };
+  const httpPostBlob = useCallback(async <T, D>(path: string, body: D) => {
+    const uri = path.startsWith('/') ? path : `${path}`;
+    const urlComplete = `${urlBase}/${uri}`;
+    
+    const response = await fetch(urlComplete, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        // Adicione outros headers necessários
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+      throw new Error(await response.text());
+    }
+
+    return await response.arrayBuffer();
+
+  }, []);
+
+  return { httpGet, httpPost, httpPostBlob };
 }

@@ -12,6 +12,7 @@ export default function DashboardEvent(props: {
   absents: Guest[];
   totalAll: number | undefined;
   refreshListGuests: () => void;
+  handlePdf: () => void
 }) {
 
   const date = new Date(props.event.date)
@@ -40,12 +41,20 @@ export default function DashboardEvent(props: {
           value={props.totalAll}
         />
       </div>
-      <button
-        className="button blue self-end mt-12"
-        onClick={props.refreshListGuests}
-      >
-        <span>Atualizar Lista de convidados</span>
-      </button>
+      <div className="flex flex-row justify-end gap-5  mt-12">
+        <button
+          className="button blue self-end"
+          onClick={props.handlePdf}
+        >
+          <span>Gerar relatorio e lista de presença do confirmados</span>
+        </button>
+        <button
+          className="button blue self-end"
+          onClick={props.refreshListGuests}
+        >
+          <span>Atualizar Lista de convidados</span>
+        </button>
+      </div>
       <span className="flex py-2 text-xl font-bold text-white/80">
         Convidados que confirmaram PRESENÇA
       </span>

@@ -5,6 +5,7 @@ import {
   HttpException,
   Param,
   Post,
+  Res,
 } from '@nestjs/common';
 import {
   complementEvent,
@@ -15,6 +16,9 @@ import {
   Id,
 } from 'core';
 import { EventPrisma } from './event.prisma';
+import { createAttendanceSheet, createReportPdf } from 'src/function/pdf';
+import { Response } from 'express';
+import * as archiver from 'archiver';
 
 @Controller('events')
 export class EventsController {
@@ -53,6 +57,33 @@ export class EventsController {
     }
 
     return this.serial(event);
+  }
+
+  @Post('pdf')
+  async pdf(@Body() data: { id: string }, @Res() res: Response) {
+    const event = await this.repo.getById(data.id, true);
+
+    if (!event) {
+      throw new HttpException('Evento não encontrado', 400);
+    }
+
+    const reportPdf = await createReportPdf(event.guests);
+    const attendancePdf = await createAttendanceSheet(event.guests);
+
+    // Configurar resposta como ZIP
+    res.setHeader('Content-Type', 'application/zip');
+    res.setHeader(
+      'Content-Disposition',
+      'attachment; filename=documentos_evento.zip',
+    );
+
+    const archive = archiver('zip', { zlib: { level: 9 } });
+    archive.pipe(res);
+
+    archive.append(reportPdf, { name: 'relatorio.pdf' });
+    archive.append(attendancePdf, { name: 'lista_presenca.doc' });
+
+    await archive.finalize();
   }
 
   @Get()
